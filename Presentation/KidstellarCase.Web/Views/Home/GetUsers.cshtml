@@ -1,0 +1,40 @@
+﻿@using KidstellarCase.Domain.Entites
+@model List<Parent>
+@{
+    ViewData["Title"] = "GetUsers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="mt-5">Kullanıcılar Tablosu</h1>
+
+<table class="table table-striped table-responsive">
+    <thead>
+        <tr>
+            <th>Ebeveyn Adı ve Soyadı</th>
+            <th>Kullanıcı Adı Ve Soyadı</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var parent in Model)
+        {
+            foreach (var user in parent.Users)
+            {
+                <tr id=@user.UserId>
+                    <td>@parent.FirstName @parent.LastName</td>
+                    <td>@user.User.FirstName @user.User.LastName</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        $("table tbody tr").dblclick(function () {
+            var id = $(this).attr("id");
+            window.location.href = "/User/Update?id=" + id;
+        });
+    </script>
+}
+
+

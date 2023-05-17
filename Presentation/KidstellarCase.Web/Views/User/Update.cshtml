@@ -1,0 +1,49 @@
+﻿@using KidstellarCase.Domain.Entites
+@model User
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="mt-5">Kullanıcı Güncelleme Sayfası</h1>
+<input value=@Model.Id id="UserId" type="hidden" />
+<label for="FirstName">Kullanıcının Adı :</label>
+
+<input id="FirstName" type="text" value=@Model.FirstName>
+<br>
+<label for="LastName">Kullanıcının Soyadı :</label>
+
+<input id="LastName" type="text" value=@Model.LastName>
+<br>
+<button id="btnSave" type="button" class="btn btn-success">Güncelle</button>
+
+@section Scripts{
+    <script>
+        $("#btnSave").click(function () {
+            var name = $("#FirstName").val();
+            var lastName = $("#LastName").val();
+            var id = $("#UserId").val();
+            if (name == "" || lastName == "") {
+                alert("Ad ve Soyad alanları boş geçilemez.");
+                return;
+            }
+            var model = {
+                Id: id,
+                FirstName: name,
+                LastName: lastName,
+            }
+            console.log(model)
+            $.ajax({
+                type: "POST",
+                url: "/User/Update",
+                dataType: "json",
+                data: {
+                    model: model,
+                },
+                success: function (response) {
+                    alert("Güncelleme Başarılı");
+                }
+            });
+        });
+    </script>
+    }

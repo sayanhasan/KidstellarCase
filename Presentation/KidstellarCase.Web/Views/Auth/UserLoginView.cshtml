@@ -1,0 +1,18 @@
+﻿@using KidstellarCase.Domain.Enums
+@model LoginViewModel
+@{
+    ViewData["Title"] = "UserLoginView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-center align-items-center" style="height:100vh;">
+    <h3>Kullanıcı Girişi :</h3>
+    <form class="mx-2" method="post" action="/Auth/Login">
+        @Html.AntiForgeryToken()
+        @Html.TextBoxFor(x=>x.Username,new {@class = "form-contol", @type="text",@placeholder = "Username"})
+        @Html.TextBoxFor(x=>x.Password,new {@class = "form-contol", @type="password",@placeholder = "****"})
+        <input type="hidden" id="Role" value=@Role.User/>
+        <button class="btn btn-primary" type="submit">Login</button>
+    </form>
+</div>
+
